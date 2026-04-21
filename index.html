@@ -206,12 +206,12 @@
             background: var(--aqua-glow);
             border-radius: 50%;
             animation: pulse 2s ease infinite;
-            padding-top: 50px;
+             margin-top: 100px;
         }
 
         .hero h1 {
             font-family: 'DM Serif Display', serif;
-            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-size: 40px;
             color: #fff;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -828,7 +828,7 @@
         <div class="hero-content">
             <div class="hero-badge"> Data Science Desertation Project | The universty of Sheffield</div>
             <h1>Forecasting UK <span class="gradient-text">Groundwater Levels</span> with Machine Learning</h1>
-            <p>Comparing statistical and deep learning approaches to monthly groundwater level prediction using 79 years of observational data. Built for researchers and policymakers.</p>
+            <p>Comparing statistical and deep learning ML models in predicting groundwater level in the UK</p>
             <div class="hero-actions">
                 <a href="#dashboard" class="btn-primary">
                     <span>Open Dashboard</span>
@@ -845,20 +845,20 @@
     <div class="stats-bar">
         <div class="stats-inner">
             <div class="stat-item">
-                <span class="stat-number">79</span>
-                <span class="stat-label">Years of Data</span>
+                <span class="stat-number">January 1944 - October 2015</span>
+                <span class="stat-label">Training Months</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">3</span>
-                <span class="stat-label">Forecasting Models</span>
+                <span class="stat-number">November 2015 – October 2023</span>
+                <span class="stat-label">Testing Months</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">5</span>
                 <span class="stat-label">Evaluation Metrics</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Input Variables</span>
+                <span class="stat-number">3</span>
+                <span class="stat-label">Machine learning Models</span>
             </div>
         </div>
     </div>
@@ -869,7 +869,7 @@
             <div class="section-header fade-in">
                 <div class="section-label">Model Comparison</div>
                 <h2 class="section-title">Three Approaches to Prediction</h2>
-                <p class="section-desc">Each model captures different dynamics in groundwater behaviour — from seasonal autoregressive patterns to long-range temporal dependencies.</p>
+                <p class="section-desc">This research explores the effectiveness of various time-series modelling techniques: SARIMAX, LSTM, and TCN in forecasting Groundwater Levels of the United Kingdom. We analyse how each approach leverages historical hydro-meteorological data and identify which meteorological variables significantly enhance model performance. </p>
             </div>
 
             <div class="model-grid">
@@ -878,27 +878,23 @@
                     <div class="model-icon">S</div>
                     <h3>SARIMAX</h3>
                     <div class="model-type">Statistical Model</div>
-                    <p>Seasonal Autoregressive Integrated Moving Average with eXogenous variables. Captures linear seasonal and trend patterns through its autoregressive structure.</p>
+                    <p>Seasonal Autoregressive Integrated Moving Average with eXogenous variables.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE</span>
-                            <!-- UPDATE: Replace with your actual SARIMAX RMSE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">RMSE(M)</span>
+                            <span class="metric-value">5.154</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R²</span>
-                            <!-- UPDATE: Replace with your actual SARIMAX R² -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">R² and NSE </span>
+                            <span class="metric-value">-0.3826</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE</span>
-                            <!-- UPDATE: Replace with your actual SARIMAX MAE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">MAE(M)</span>
+                            <span class="metric-value">4.1969</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">NSE</span>
-                            <!-- UPDATE: Replace with your actual SARIMAX NSE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">MAPE %</span>
+                            <span class="metric-value">6.5844</span>
                         </div>
                     </div>
                 </div>
@@ -911,24 +907,20 @@
                     <p>Long Short-Term Memory network. Learns long-range temporal dependencies through gated memory cells, capturing non-linear relationships in the time series.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE</span>
-                            <!-- UPDATE: Replace with your actual LSTM RMSE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">RMSE(M)</span>
+                            <span class="metric-value">2.74</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R²</span>
-                            <!-- UPDATE: Replace with your actual LSTM R² -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">R² and NSE</span>
+                            <span class="metric-value">0.61</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE</span>
-                            <!-- UPDATE: Replace with your actual LSTM MAE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">MAE(M)</span>
+                            <span class="metric-value">2.19</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">NSE</span>
-                            <!-- UPDATE: Replace with your actual LSTM NSE -->
-                            <span class="metric-value">—</span>
+                          <span class="metric-label">MAPE %</span>
+                          <span class="metric-value">3.35</span>
                         </div>
                     </div>
                 </div>
@@ -941,21 +933,20 @@
                     <p>Temporal Convolutional Network. Uses dilated causal convolutions to process sequences in parallel, offering efficient training with an expanding receptive field.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE</span>
-                            <span class="metric-value">3.58m</span>
+                            <span class="metric-label">RMSE(M)</span>
+                            <span class="metric-value">2.9366</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R²</span>
-                            <span class="metric-value">0.33</span>
+                            <span class="metric-label">R² and NSE</span>
+                            <span class="metric-value">0.5511</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE</span>
-                            <!-- UPDATE: Replace with your actual TCN MAE -->
-                            <span class="metric-value">—</span>
+                            <span class="metric-label">MAE(M)</span>
+                            <span class="metric-value">—2.3952</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">NSE</span>
-                            <span class="metric-value">0.33</span>
+                          <span class="metric-label">MAPE %</span>
+                          <span class="metric-value">3.5738</span>
                         </div>
                     </div>
                 </div>
@@ -973,21 +964,14 @@
             </div>
 
             <div class="gradio-container fade-in">
-                <!--
-                    ╔══════════════════════════════════════════════════════════╗
-                    ║  GRADIO EMBED — Replace the placeholder below with:     ║
-                    ║                                                          ║
-                    ║  <iframe                                                 ║
-                    ║    src="https://YOUR-USERNAME-YOUR-SPACE.hf.space"       ║
-                    ║    frameborder="0"                                       ║
-                    ║    title="Groundwater Prediction Dashboard"              ║
-                    ║  ></iframe>                                              ║
-                    ╚══════════════════════════════════════════════════════════╝
-                -->
                 <div class="gradio-placeholder">
                     <div class="placeholder-icon">📊</div>
-                    <p>Gradio Dashboard will be embedded here</p>
-                    <code>Replace with your HuggingFace Space iframe URL</code>
+                    <code><iframe
+                        	src="https://kozy9-lstm-gwl-forecaster.hf.space"
+                        	frameborder="0"
+                        	width="850"
+                        	height="450"
+                        ></iframe></code>
                 </div>
             </div>
         </div>
@@ -1016,17 +1000,16 @@
                         </li>
                         <li>
                             <span class="dl-label">Location</span>
-                            <!-- UPDATE: Replace with your actual borehole name/location -->
-                            <span class="dl-value">UK Observation Borehole</span>
+                            <span class="dl-value">UK </span>
                         </li>
                         <li>
                             <span class="dl-label">Target Variable</span>
                             <span class="dl-value">Water Level (m)</span>
                         </li>
                         <li>
-                            <span class="dl-label">Train / Test Split</span>
+                            <span class="dl-label">Train / Validation /Test Split</span>
                             <!-- UPDATE: Confirm your split ratio -->
-                            <span class="dl-value">80% / 20%</span>
+                            <span class="dl-value">80% / 10% / 20%</span>
                         </li>
                     </ul>
                 </div>
@@ -1057,7 +1040,14 @@
 
             <div class="limitations fade-in">
                 <h4>Important Limitations</h4>
-                <p>This tool is a research demonstrator trained on a single UK observation borehole. Predictions are specific to this site and should not be generalised to other locations without retraining. The models were developed as part of an academic project (IJC319) and are not intended for operational water management decisions.</p>
+                <ul>
+                    <li> The study uses data from a single region, limiting the generalizability of its results.</li>
+                    <li>Meteorological variables were aggregated without advanced lag engineering, possibly reducing their impact on SARIMAX model accuracy.</li>
+                    <li>The evaluation used a single temporal split. Using cross-validation in future research could improve reliability and generalisability.</li>
+                    <li>SARIMAX was evaluated using multi-step forecasting, generating all test predictions in a single step, which may affect error accumulation. LSTM and TCN models used single-step-ahead forecasting, receiving actual observed data at each step, potentially reducing compounding errors..</li>
+                </ul>
+               
+
             </div>
         </div>
     </section>
@@ -1068,14 +1058,14 @@
             <div class="section-header fade-in">
                 <div class="section-label">How It Works</div>
                 <h2 class="section-title">Methodology Overview</h2>
-                <p class="section-desc">A structured approach to building, optimising, and evaluating three distinct time-series forecasting models.</p>
+                <p class="section-desc">A structured approach to Preprocessing, Building, and Evaluating .</p>
             </div>
 
             <div class="method-steps fade-in">
                 <div class="method-step">
                     <div class="step-num">01</div>
                     <h4>Data Preparation</h4>
-                    <p>Monthly observations were cleaned, aligned, and normalised using MinMaxScaler. Separate scalers ensured no data leakage from test to training sets.</p>
+                    <p>Monthly observations were cleaned, aggregated, and normalised using MinMaxScaler. Separate scalers ensured no data leakage from test to training sets, and finally explored.</p>
                 </div>
                 <div class="method-step">
                     <div class="step-num">02</div>
@@ -1097,14 +1087,14 @@
             <div class="section-header fade-in">
                 <div class="section-label">About</div>
                 <h2 class="section-title">About This Project</h2>
-                <p class="section-desc">An academic research project exploring machine learning approaches to environmental time-series forecasting.</p>
+                <p class="section-desc"> A final year Data science project Benchmarking SARIMAX, LSTM, and TCN for groundwater prediction with metrological Data.</p>
             </div>
 
             <div class="data-grid fade-in">
                 <div class="data-card">
                     <h3>Project Context</h3>
-                    <p>This project was completed as part of the IJC319 Responsible Data Science module at the University of Sheffield. It investigates whether deep learning models (LSTM, TCN) can outperform traditional statistical methods (SARIMAX) for predicting monthly groundwater levels in the UK.</p>
-                    <p style="margin-top: 1rem;">The research is structured around three hypotheses addressing model performance, architectural comparison, and meteorological feature importance.</p>
+                    <p>This project was completed as part of the IJC319 Responsible Data Science module at the University of Sheffield. It investigates whether deep learning models (LSTM, TCN) can outperform traditional statistical methods (SARIMAX) for predicting monthly groundwater levels in the UK with the use of meteorological data. </p>
+                    <p style="margin-top: 1rem;">The research is structured around three hypotheses addressing model performance and meteorological feature importance.</p>
                 </div>
 
                 <div class="data-card">
@@ -1112,17 +1102,16 @@
                     <p>The trained models are hosted as reproducible notebooks on HuggingFace, and this dashboard provides an accessible interface for exploring the results.</p>
                     <ul class="data-list" style="margin-top: 1rem;">
                         <li>
-                            <span class="dl-label">LSTM Notebook</span>
-                            <!-- UPDATE: Replace # with your actual HF links -->
-                            <a href="https://huggingface.co/Kozy9/GWLSTM" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWLSTM ↗</a>
+                            <span class="dl-label">LSTM Huggingface Model</span>
+                            <a href="https://huggingface.co/kozy9/GWLSTM" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWLSTM ↗</a>
                         </li>
                         <li>
-                            <span class="dl-label">TCN Notebook</span>
-                            <a href="https://huggingface.co/Kozy9/GWTCN" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWTCN ↗</a>
+                            <span class="dl-label">TCN Huggingface Model</span>
+                            <a href="https://huggingface.co/kozy9/GWTCN" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWTCN ↗</a>
                         </li>
                         <li>
-                            <span class="dl-label">SARIMAX Notebook</span>
-                            <a href="https://huggingface.co/Kozy9/GWSarimax" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWSarimax ↗</a>
+                            <span class="dl-label">SARIMAX Huggingface Model</span>
+                            <a href="https://huggingface.co/kozy9/GWSarimax" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWSarimax ↗</a>
                         </li>
                     </ul>
                 </div>
@@ -1135,7 +1124,7 @@
         <div class="footer-inner">
             <div class="footer-left">
                 <div class="footer-logo">GW Predict</div>
-                <p>UK Groundwater Level Prediction Dashboard. Built as a digital artefact for module IJC319, University of Sheffield.</p>
+                <p>UK Groundwater Level Prediction Dashboard. Built as a digital artefact for module IJC319 dissertation , University of Sheffield.</p>
             </div>
             <div class="footer-links">
                 <div class="footer-col">
@@ -1147,15 +1136,14 @@
                 </div>
                 <div class="footer-col">
                     <h4>Resources</h4>
-                    <a href="https://huggingface.co/Kozy9/GWLSTM" target="_blank">LSTM on HuggingFace</a>
-                    <a href="https://huggingface.co/Kozy9/GWTCN" target="_blank">TCN on HuggingFace</a>
-                    <a href="https://huggingface.co/Kozy9/GWSarimax" target="_blank">SARIMAX on HuggingFace</a>
+                    <a href="https://huggingface.co/kozy9/GWLSTM" target="_blank">LSTM on HuggingFace</a>
+                    <a href="https://huggingface.co/kozy9/GWTCN" target="_blank">TCN on HuggingFace</a>
+                    <a href="https://huggingface.co/kozy9/GWSarimax" target="_blank">SARIMAX on HuggingFace</a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <!-- UPDATE: Replace with your name -->
-            <p>© 2025 Ahmed · IJC319 Responsible Data Science · University of Sheffield</p>
+            <p>© 2025 Zahra Alkhalifah · IJC319 Responsible Data Science · University of Sheffield</p>
         </div>
     </footer>
 

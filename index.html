@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Groundwater Level Prediction | Forecasting Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #0a1628;
+            --slate: #1a2744;
+            --teal: #1a8a7d;
+            --teal-light: #22b8a7;
+            --aqua-glow: #3dd4c6;
+            --sand: #e8dcc8;
+            --cream: #f5f1eb;
+            --off-white: #faf9f7;
+            --text-primary: #1a2744;
+            --text-secondary: #4a5568;
+            --text-light: #8896ab;
+            --border: #d4cfc7;
+            --card-bg: #ffffff;
+            --section-alt: #f7f5f2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            color: var(--text-primary);
+            background: var(--off-white);
+            line-height: 1.7;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAVIGATION ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(61, 212, 198, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        nav .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        nav .logo .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--teal), var(--aqua-glow));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 0.3rem;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+
+        nav .nav-links a:hover,
+        nav .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: var(--deep-blue);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(26, 138, 125, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, var(--deep-blue), transparent);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(61, 212, 198, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61, 212, 198, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(26, 138, 125, 0.15);
+            border: 1px solid rgba(61, 212, 198, 0.25);
+            color: var(--aqua-glow);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--aqua-glow);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            animation: fadeInUp 0.8s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--teal-light), var(--aqua-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 540px;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(26, 138, 125, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(26, 138, 125, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: var(--slate);
+            border-top: 1px solid rgba(61, 212, 198, 0.1);
+            border-bottom: 1px solid rgba(61, 212, 198, 0.1);
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: var(--aqua-glow);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 0.3rem;
+        }
+
+        /* ── SECTIONS ── */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-alt {
+            background: var(--section-alt);
+        }
+
+        .section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* ── MODEL CARDS ── */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--teal);
+        }
+
+        .model-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--aqua-glow));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .model-card:hover::before {
+            opacity: 1;
+        }
+
+        .model-card .model-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.3rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .model-card:nth-child(1) .model-icon { background: linear-gradient(135deg, #4a90d9, #67b8f0); }
+        .model-card:nth-child(2) .model-icon { background: linear-gradient(135deg, #d97a4a, #f0a367); }
+        .model-card:nth-child(3) .model-icon { background: linear-gradient(135deg, #7a4ad9, #a367f0); }
+
+        .model-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.35rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .model-card .model-type {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+        }
+
+        .model-card p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .model-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .metric-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ── DASHBOARD EMBED ── */
+        .dashboard-section {
+            background: var(--deep-blue);
+            padding: 5rem 2rem;
+        }
+
+        .dashboard-section .section-label {
+            color: var(--aqua-glow);
+        }
+
+        .dashboard-section .section-title {
+            color: #fff;
+        }
+
+        .dashboard-section .section-desc {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .gradio-container {
+            margin-top: 2.5rem;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(61, 212, 198, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .gradio-container iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            display: block;
+        }
+
+        .gradio-placeholder {
+            width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            background: var(--slate);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.95rem;
+        }
+
+        .gradio-placeholder .placeholder-icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        .gradio-placeholder code {
+            font-family: 'IBM Plex Mono', monospace;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: var(--aqua-glow);
+        }
+
+        /* ── DATA SECTION ── */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .data-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .data-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .data-card p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .data-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .data-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-list li:last-child {
+            border-bottom: none;
+        }
+
+        .data-list .dl-label {
+            color: var(--text-secondary);
+        }
+
+        .data-list .dl-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+        }
+
+        /* ── METHODOLOGY HIGHLIGHT ── */
+        .method-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .method-step {
+            position: relative;
+            padding: 1.8rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .method-step .step-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--teal);
+            opacity: 0.2;
+            line-height: 1;
+            margin-bottom: 0.8rem;
+        }
+
+        .method-step h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .method-step p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ── LIMITATIONS NOTICE ── */
+        .limitations {
+            margin-top: 3rem;
+            padding: 1.8rem 2rem;
+            background: rgba(26, 138, 125, 0.06);
+            border: 1px solid rgba(26, 138, 125, 0.15);
+            border-radius: 12px;
+            border-left: 4px solid var(--teal);
+        }
+
+        .limitations h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--teal);
+        }
+
+        .limitations p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--deep-blue);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 2rem;
+        }
+
+        .footer-left .footer-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-left p {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            max-width: 350px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .footer-col h4 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col a {
+            display: block;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.25rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--aqua-glow);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .model-grid,
+            .method-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 650px) {
+            nav .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 22, 40, 0.98);
+                flex-direction: column;
+                padding: 1rem;
+                border-bottom: 1px solid rgba(61, 212, 198, 0.15);
+            }
+
+            nav .nav-links.open {
+                display: flex;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .stats-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .gradio-container iframe,
+            .gradio-placeholder {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-inner">
+            <a href="#home" class="logo">
+                <div class="logo-icon">💧</div>
+                GW Predict
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#models">Models</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Research Project · IJC319</div>
+            <h1>Forecasting UK <span class="gradient-text">Groundwater Levels</span> with Machine Learning</h1>
+            <p>Comparing statistical and deep learning approaches to monthly groundwater level prediction using 79 years of observational data. Built for researchers and policymakers.</p>
+            <div class="hero-actions">
+                <a href="#dashboard" class="btn-primary">
+                    <span>Open Dashboard</span>
+                    <span>→</span>
+                </a>
+                <a href="#models" class="btn-secondary">
+                    <span>Explore Models</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-inner">
+            <div class="stat-item">
+                <span class="stat-number">79</span>
+                <span class="stat-label">Years of Data</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">3</span>
+                <span class="stat-label">Forecasting Models</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Evaluation Metrics</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4</span>
+                <span class="stat-label">Input Variables</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODELS -->
+    <section class="section" id="models">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">Model Comparison</div>
+                <h2 class="section-title">Three Approaches to Prediction</h2>
+                <p class="section-desc">Each model captures different dynamics in groundwater behaviour — from seasonal autoregressive patterns to long-range temporal dependencies.</p>
+            </div>
+
+            <div class="model-grid">
+                <!-- SARIMAX -->
+                <div class="model-card fade-in">
+                    <div class="model-icon">S</div>
+                    <h3>SARIMAX</h3>
+                    <div class="model-type">Statistical Model</div>
+                    <p>Seasonal Autoregressive Integrated Moving Average with eXogenous variables. Captures linear seasonal and trend patterns through its autoregressive structure.</p>
+                    <div class="model-metrics">
+                        <div class="metric">
+                            <span class="metric-label">RMSE</span>
+                            <!-- UPDATE: Replace with your actual SARIMAX RMSE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">R²</span>
+                            <!-- UPDATE: Replace with your actual SARIMAX R² -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">MAE</span>
+                            <!-- UPDATE: Replace with your actual SARIMAX MAE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">NSE</span>
+                            <!-- UPDATE: Replace with your actual SARIMAX NSE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LSTM -->
+                <div class="model-card fade-in">
+                    <div class="model-icon">L</div>
+                    <h3>LSTM</h3>
+                    <div class="model-type">Deep Learning — Recurrent</div>
+                    <p>Long Short-Term Memory network. Learns long-range temporal dependencies through gated memory cells, capturing non-linear relationships in the time series.</p>
+                    <div class="model-metrics">
+                        <div class="metric">
+                            <span class="metric-label">RMSE</span>
+                            <!-- UPDATE: Replace with your actual LSTM RMSE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">R²</span>
+                            <!-- UPDATE: Replace with your actual LSTM R² -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">MAE</span>
+                            <!-- UPDATE: Replace with your actual LSTM MAE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">NSE</span>
+                            <!-- UPDATE: Replace with your actual LSTM NSE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TCN -->
+                <div class="model-card fade-in">
+                    <div class="model-icon">T</div>
+                    <h3>TCN</h3>
+                    <div class="model-type">Deep Learning — Convolutional</div>
+                    <p>Temporal Convolutional Network. Uses dilated causal convolutions to process sequences in parallel, offering efficient training with an expanding receptive field.</p>
+                    <div class="model-metrics">
+                        <div class="metric">
+                            <span class="metric-label">RMSE</span>
+                            <span class="metric-value">3.58m</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">R²</span>
+                            <span class="metric-value">0.33</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">MAE</span>
+                            <!-- UPDATE: Replace with your actual TCN MAE -->
+                            <span class="metric-value">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">NSE</span>
+                            <span class="metric-value">0.33</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">Interactive Tool</div>
+                <h2 class="section-title">Prediction Dashboard</h2>
+                <p class="section-desc">Compare model predictions, explore historical trends, and test forecasting scenarios interactively.</p>
+            </div>
+
+            <div class="gradio-container fade-in">
+                <!--
+                    ╔══════════════════════════════════════════════════════════╗
+                    ║  GRADIO EMBED — Replace the placeholder below with:     ║
+                    ║                                                          ║
+                    ║  <iframe                                                 ║
+                    ║    src="https://YOUR-USERNAME-YOUR-SPACE.hf.space"       ║
+                    ║    frameborder="0"                                       ║
+                    ║    title="Groundwater Prediction Dashboard"              ║
+                    ║  ></iframe>                                              ║
+                    ╚══════════════════════════════════════════════════════════╝
+                -->
+                <div class="gradio-placeholder">
+                    <div class="placeholder-icon">📊</div>
+                    <p>Gradio Dashboard will be embedded here</p>
+                    <code>Replace with your HuggingFace Space iframe URL</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DATA -->
+    <section class="section section-alt" id="data">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">Dataset</div>
+                <h2 class="section-title">About the Data</h2>
+                <p class="section-desc">A long-term UK observational record providing monthly groundwater measurements alongside meteorological variables.</p>
+            </div>
+
+            <div class="data-grid fade-in">
+                <div class="data-card">
+                    <h3>Dataset Overview</h3>
+                    <ul class="data-list">
+                        <li>
+                            <span class="dl-label">Time Period</span>
+                            <span class="dl-value">1944 – 2023</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Frequency</span>
+                            <span class="dl-value">Monthly</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Location</span>
+                            <!-- UPDATE: Replace with your actual borehole name/location -->
+                            <span class="dl-value">UK Observation Borehole</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Target Variable</span>
+                            <span class="dl-value">Water Level (m)</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Train / Test Split</span>
+                            <!-- UPDATE: Confirm your split ratio -->
+                            <span class="dl-value">80% / 20%</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="data-card">
+                    <h3>Input Features</h3>
+                    <p>The models use the following meteorological variables as exogenous inputs, alongside lagged groundwater level values:</p>
+                    <ul class="data-list">
+                        <li>
+                            <span class="dl-label">Temperature</span>
+                            <span class="dl-value">°C (monthly avg)</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Precipitation</span>
+                            <span class="dl-value">mm (monthly total)</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Wind Speed</span>
+                            <span class="dl-value">m/s (monthly avg)</span>
+                        </li>
+                        <li>
+                            <span class="dl-label">Water Level</span>
+                            <span class="dl-value">m (target / lagged)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="limitations fade-in">
+                <h4>Important Limitations</h4>
+                <p>This tool is a research demonstrator trained on a single UK observation borehole. Predictions are specific to this site and should not be generalised to other locations without retraining. The models were developed as part of an academic project (IJC319) and are not intended for operational water management decisions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section class="section" id="methodology">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-title">Methodology Overview</h2>
+                <p class="section-desc">A structured approach to building, optimising, and evaluating three distinct time-series forecasting models.</p>
+            </div>
+
+            <div class="method-steps fade-in">
+                <div class="method-step">
+                    <div class="step-num">01</div>
+                    <h4>Data Preparation</h4>
+                    <p>Monthly observations were cleaned, aligned, and normalised using MinMaxScaler. Separate scalers ensured no data leakage from test to training sets.</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-num">02</div>
+                    <h4>Model Training</h4>
+                    <p>Each model was optimised using Bayesian hyperparameter search — Optuna for SARIMAX and Keras Tuner for LSTM and TCN — to find the best configuration systematically.</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-num">03</div>
+                    <h4>Evaluation</h4>
+                    <p>Models were assessed on held-out test data using five standard metrics: RMSE, MAE, MAPE, R², and NSE. Naive baselines provided additional benchmarking context.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section section-alt" id="about">
+        <div class="section-inner">
+            <div class="section-header fade-in">
+                <div class="section-label">About</div>
+                <h2 class="section-title">About This Project</h2>
+                <p class="section-desc">An academic research project exploring machine learning approaches to environmental time-series forecasting.</p>
+            </div>
+
+            <div class="data-grid fade-in">
+                <div class="data-card">
+                    <h3>Project Context</h3>
+                    <p>This project was completed as part of the IJC319 Responsible Data Science module at the University of Sheffield. It investigates whether deep learning models (LSTM, TCN) can outperform traditional statistical methods (SARIMAX) for predicting monthly groundwater levels in the UK.</p>
+                    <p style="margin-top: 1rem;">The research is structured around three hypotheses addressing model performance, architectural comparison, and meteorological feature importance.</p>
+                </div>
+
+                <div class="data-card">
+                    <h3>Digital Artefact</h3>
+                    <p>The trained models are hosted as reproducible notebooks on HuggingFace, and this dashboard provides an accessible interface for exploring the results.</p>
+                    <ul class="data-list" style="margin-top: 1rem;">
+                        <li>
+                            <span class="dl-label">LSTM Notebook</span>
+                            <!-- UPDATE: Replace # with your actual HF links -->
+                            <a href="https://huggingface.co/Kozy9/GWLSTM" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWLSTM ↗</a>
+                        </li>
+                        <li>
+                            <span class="dl-label">TCN Notebook</span>
+                            <a href="https://huggingface.co/Kozy9/GWTCN" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWTCN ↗</a>
+                        </li>
+                        <li>
+                            <span class="dl-label">SARIMAX Notebook</span>
+                            <a href="https://huggingface.co/Kozy9/GWSarimax" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">Kozy9/GWSarimax ↗</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-left">
+                <div class="footer-logo">GW Predict</div>
+                <p>UK Groundwater Level Prediction Dashboard. Built as a digital artefact for module IJC319, University of Sheffield.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="#home">Home</a>
+                    <a href="#models">Models</a>
+                    <a href="#dashboard">Dashboard</a>
+                    <a href="#data">Data</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="https://huggingface.co/Kozy9/GWLSTM" target="_blank">LSTM on HuggingFace</a>
+                    <a href="https://huggingface.co/Kozy9/GWTCN" target="_blank">TCN on HuggingFace</a>
+                    <a href="https://huggingface.co/Kozy9/GWSarimax" target="_blank">SARIMAX on HuggingFace</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <!-- UPDATE: Replace with your name -->
+            <p>© 2025 Ahmed · IJC319 Responsible Data Science · University of Sheffield</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close mobile nav on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section, .dashboard-section');
+        const navItems = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll fade-in animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+</html>

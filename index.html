@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UK Groundwater Level Prediction | BenchMarking Dashboard</title>
+    <title>GWL Prediction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -35,6 +35,7 @@
             scroll-behavior: smooth;
             scroll-padding-top: 80px;
         }
+		
 
         body {
             font-family: 'IBM Plex Sans', sans-serif;
@@ -373,6 +374,10 @@
             position: relative;
             overflow: hidden;
         }
+		.model-card.featured {
+		    transform: scale(1.03);
+		    border: 2px solid var(--teal);
+		}
 
         .model-card:hover {
             transform: translateY(-4px);
@@ -892,7 +897,7 @@
                 </div>
 
                 <!-- LSTM -->
-                <div class="model-card fade-in">
+                <div class="model-card featured">
                     <div class="model-icon">L</div>
                     <h3>LSTM</h3>
                     <div class="model-type">Deep Learning — Recurrent</div>

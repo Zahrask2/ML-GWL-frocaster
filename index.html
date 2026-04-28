@@ -3,28 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GWL Prediction</title>
+    <title> GWL Prediction Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --deep-blue: #0a1628;
-            --slate: #1a2744;
-            --teal: #1a8a7d;
-            --teal-light: #22b8a7;
-            --aqua-glow: #3dd4c6;
-            --sand: #e8dcc8;
-            --cream: #f5f1eb;
-            --off-white: #faf9f7;
-            --text-primary: #1a2744;
-            --text-secondary: #4a5568;
-            --text-light: #8896ab;
-            --border: #d4cfc7;
-            --card-bg: #ffffff;
-            --section-alt: #f7f5f2;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -33,9 +16,8 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 80px;
+            scroll-padding-top: 70px;
         }
-		
 
         body {
             font-family: 'IBM Plex Sans', sans-serif;
@@ -44,72 +26,61 @@
             line-height: 1.7;
         }
 
-        /* ── NAVIGATION ── */
+        /* Nav */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(10, 22, 40, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(61, 212, 198, 0.15);
-            transition: all 0.3s ease;
+            background: #0f172a;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
         nav .nav-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
+            height: 64px;
         }
 
         nav .logo {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.2rem;
+            font-weight: 700;
+            font-size: 1rem;
             color: #fff;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         nav .logo .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--teal), var(--aqua-glow));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
         nav .nav-links {
             display: flex;
-            gap: 0.3rem;
+            gap: 0.2rem;
             list-style: none;
         }
 
         nav .nav-links a {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255,255,255,0.65);
             text-decoration: none;
             font-size: 0.85rem;
             font-weight: 500;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 6px;
-            transition: all 0.2s ease;
-            letter-spacing: 0.01em;
+            transition: color 0.2s, background 0.2s;
         }
 
         nav .nav-links a:hover,
         nav .nav-links a.active {
             color: #fff;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255,255,255,0.08);
         }
 
         .hamburger {
@@ -122,176 +93,123 @@
 
         .hamburger span {
             display: block;
-            width: 22px;
+            width: 20px;
             height: 2px;
             background: #fff;
             margin: 5px 0;
-            transition: all 0.3s ease;
             border-radius: 2px;
         }
 
-        /* ── HERO ── */
+        /* Hero */
         .hero {
-            min-height: 100vh;
-            background: var(--deep-blue);
+            min-height: 85vh;
+            background: linear-gradient(160deg, #0f172a 0%, #1e3a5f 100%);
             display: flex;
             align-items: center;
-            position: relative;
-            overflow: hidden;
+            padding-top: 64px;
         }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(26, 138, 125, 0.12) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 200px;
-            background: linear-gradient(to top, var(--deep-blue), transparent);
-            pointer-events: none;
-        }
-
-       
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+            padding: 3rem 1.5rem;
         }
 
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(26, 138, 125, 0.15);
-            border: 1px solid rgba(61, 212, 198, 0.25);
-            color: var(--aqua-glow);
-            font-size: 0.78rem;
-            font-weight: 500;
-            padding: 0.45rem 1rem;
-            border-radius: 100px;
-            letter-spacing: 0.04em;
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: #7dd3fc;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 0.9rem;
+            border-radius: 50px;
+            letter-spacing: 0.03em;
             text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .hero-badge::before {
-            content: '';
-            width: 6px;
-            height: 4px;
-            background: var(--aqua-glow);
-            border-radius: 50%;
-            animation: pulse 2s ease infinite;
-            margin-top: 30px;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 40px;
+            font-size: 2.6rem;
+            font-weight: 700;
             color: #fff;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            max-width: 700px;
-            animation: fadeInUp 0.8s ease 0.1s forwards;
-            opacity: 0;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            max-width: 650px;
         }
 
-        .hero h1 .gradient-text {
-            background: linear-gradient(135deg, var(--teal-light), var(--aqua-glow));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero h1 .highlight {
+            color: #38bdf8;
         }
 
         .hero p {
-            font-size: 1.15rem;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 540px;
-            line-height: 1.8;
-            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.55);
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 2rem;
             font-weight: 300;
-            animation: fadeInUp 0.8s ease 0.2s forwards;
-            opacity: 0;
         }
 
         .hero-actions {
             display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.8s ease 0.3s forwards;
-            opacity: 0;
+            gap: 0.8rem;
         }
 
         .btn-primary {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.8rem;
-            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            gap: 0.4rem;
+            padding: 0.75rem 1.5rem;
+            background: #0ea5e9;
             color: #fff;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(26, 138, 125, 0.3);
+            transition: background 0.2s;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(26, 138, 125, 0.4);
+            background: #0284c7;
         }
 
         .btn-secondary {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.8rem;
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.8);
+            gap: 0.4rem;
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            color: rgba(255,255,255,0.75);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 0.88rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.15);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.2s, color 0.2s;
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.06);
             color: #fff;
         }
 
-        /* ── STATS BAR ── */
+        /* Stats bar */
         .stats-bar {
-            background: var(--slate);
-            border-top: 1px solid rgba(61, 212, 198, 0.1);
-            border-bottom: 1px solid rgba(61, 212, 198, 0.1);
+            background: #1e293b;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
         .stats-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .stat-item {
@@ -299,152 +217,128 @@
         }
 
         .stat-number {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2rem;
-            color: var(--aqua-glow);
+            font-weight: 700;
+            font-size: 1rem;
+            color: #38bdf8;
             display: block;
         }
 
         .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-top: 0.3rem;
+            letter-spacing: 0.05em;
+            margin-top: 0.25rem;
         }
 
-        /* ── SECTIONS ── */
+        /* Sections */
         .section {
-            padding: 6rem 2rem;
+            padding: 4.5rem 1.5rem;
         }
 
         .section-alt {
-            background: var(--section-alt);
+            background: #f1f5f9;
         }
 
         .section-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .section-header {
-            margin-bottom: 3.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .section-label {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--teal);
-            margin-bottom: 0.8rem;
+            letter-spacing: 0.08em;
+            color: #0ea5e9;
+            margin-bottom: 0.5rem;
         }
 
         .section-title {
-            font-family: 'DM Serif Display', serif;
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            color: var(--text-primary);
-            margin-bottom: 1rem;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.7rem;
         }
 
         .section-desc {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 600px;
+            font-size: 1rem;
+            color: #64748b;
+            max-width: 580px;
             font-weight: 300;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
-        /* ── MODEL CARDS ── */
+        /* Model cards */
         .model-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .model-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.6rem;
+            transition: box-shadow 0.2s;
         }
-		.model-card.featured {
-		    transform: scale(1.03);
-		    border: 2px solid var(--teal);
-		}
 
         .model-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-            border-color: var(--teal);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
-        .model-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--teal), var(--aqua-glow));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .model-card:hover::before {
-            opacity: 1;
-        }
-
-        .model-card .model-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
+        .model-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            margin-bottom: 1.3rem;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
             font-family: 'IBM Plex Mono', monospace;
-            font-weight: 500;
+            font-weight: 600;
             color: #fff;
         }
 
-        .model-card:nth-child(1) .model-icon { background: linear-gradient(135deg, #4a90d9, #67b8f0); }
-        .model-card:nth-child(2) .model-icon { background: linear-gradient(135deg, #d97a4a, #f0a367); }
-        .model-card:nth-child(3) .model-icon { background: linear-gradient(135deg, #7a4ad9, #a367f0); }
+        .model-card:nth-child(1) .model-icon { background: #3b82f6; }
+        .model-card:nth-child(2) .model-icon { background: #f59e0b; }
+        .model-card:nth-child(3) .model-icon { background: #8b5cf6; }
 
         .model-card h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
         }
 
         .model-card .model-type {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--teal);
+            font-size: 0.7rem;
+            color: #0ea5e9;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 1rem;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.8rem;
         }
 
         .model-card p {
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.65;
+            margin-bottom: 1.2rem;
         }
 
         .model-metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-            padding-top: 1.2rem;
-            border-top: 1px solid var(--border);
+            gap: 0.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
         }
 
         .metric {
@@ -454,27 +348,27 @@
 
         .metric-label {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--text-light);
+            font-size: 0.65rem;
+            color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
         }
 
         .metric-value {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 500;
-            color: var(--text-primary);
+            color: #1e293b;
         }
 
-        /* ── DASHBOARD EMBED ── */
+        /* Dashboard section */
         .dashboard-section {
-            background: var(--deep-blue);
-            padding: 5rem 2rem;
+            background: #0f172a;
+            padding: 4rem 1.5rem;
         }
 
         .dashboard-section .section-label {
-            color: var(--aqua-glow);
+            color: #7dd3fc;
         }
 
         .dashboard-section .section-title {
@@ -482,15 +376,15 @@
         }
 
         .dashboard-section .section-desc {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255,255,255,0.45);
         }
 
         .gradio-container {
-            margin-top: 2.5rem;
-            border-radius: 16px;
+            margin-top: 2rem;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(61, 212, 198, 0.15);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
         }
 
         .gradio-container iframe {
@@ -500,70 +394,42 @@
             display: block;
         }
 
-        .gradio-placeholder {
-            width: 100%;
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 1rem;
-            background: var(--slate);
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.95rem;
-        }
-
-        .gradio-placeholder .placeholder-icon {
-            font-size: 2.5rem;
-            opacity: 0.5;
-        }
-
-        .gradio-placeholder code {
-            width: 100%;
-            font-family: 'IBM Plex Mono', monospace;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            color: var(--aqua-glow);
-        }
-
-        /* ── DATA SECTION ── */
+        /* Data section */
         .data-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
         .data-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.6rem;
         }
 
         .data-card h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
         }
 
         .data-card p {
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.65;
         }
 
         .data-list {
             list-style: none;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
 
         .data-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
+            padding: 0.45rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.88rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -573,87 +439,92 @@
             border-bottom: none;
         }
 
-        .data-list .dl-label {
-            color: var(--text-secondary);
+        .dl-label {
+            color: #64748b;
         }
 
-        .data-list .dl-value {
+        .dl-value {
             font-family: 'IBM Plex Mono', monospace;
             font-weight: 500;
-            font-size: 0.85rem;
-            color: var(--text-primary);
+            font-size: 0.82rem;
+            color: #1e293b;
         }
 
-        /* ── METHODOLOGY HIGHLIGHT ── */
+        /* Methodology */
         .method-steps {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .method-step {
-            position: relative;
-            padding: 1.8rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
         }
 
-        .method-step .step-num {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2.5rem;
-            color: var(--teal);
-            opacity: 0.2;
+        .step-num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            opacity: 0.25;
             line-height: 1;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
 
         .method-step h4 {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .method-step p {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+            font-size: 0.85rem;
+            color: #64748b;
+            line-height: 1.65;
         }
 
-        /* ── LIMITATIONS NOTICE ── */
+        /* Limitations */
         .limitations {
-            margin-top: 3rem;
-            padding: 1.8rem 2rem;
-            background: rgba(26, 138, 125, 0.06);
-            border: 1px solid rgba(26, 138, 125, 0.15);
-            border-radius: 12px;
-            border-left: 4px solid var(--teal);
+            margin-top: 2.5rem;
+            padding: 1.4rem 1.6rem;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            border-left: 4px solid #3b82f6;
         }
 
         .limitations h4 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: var(--teal);
+            color: #1d4ed8;
         }
 
-        .limitations p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.7;
+        .limitations ul {
+            margin: 0;
+            padding-left: 1.2rem;
         }
 
-        /* ── FOOTER ── */
+        .limitations li {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.65;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Footer */
         footer {
-            background: var(--deep-blue);
-            color: rgba(255, 255, 255, 0.5);
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: #0f172a;
+            color: rgba(255,255,255,0.45);
+            padding: 2.5rem 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .footer-inner {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -661,97 +532,67 @@
             gap: 2rem;
         }
 
-        .footer-left .footer-logo {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.1rem;
+        .footer-logo {
+            font-weight: 700;
+            font-size: 1rem;
             color: #fff;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
         }
 
         .footer-left p {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             line-height: 1.6;
-            max-width: 350px;
+            max-width: 320px;
         }
 
         .footer-links {
             display: flex;
-            gap: 3rem;
+            gap: 2.5rem;
         }
 
         .footer-col h4 {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.78rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.8rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.6rem;
         }
 
         .footer-col a {
             display: block;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255,255,255,0.35);
             text-decoration: none;
-            font-size: 0.85rem;
-            padding: 0.25rem 0;
-            transition: color 0.2s ease;
+            font-size: 0.82rem;
+            padding: 0.2rem 0;
+            transition: color 0.2s;
         }
 
         .footer-col a:hover {
-            color: var(--aqua-glow);
+            color: #38bdf8;
         }
 
         .footer-bottom {
-            max-width: 1200px;
-            margin: 2rem auto 0;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            font-size: 0.78rem;
+            max-width: 1100px;
+            margin: 1.5rem auto 0;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.75rem;
             text-align: center;
         }
 
-        /* ── ANIMATIONS ── */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ── RESPONSIVE ── */
+        /* Responsive */
         @media (max-width: 900px) {
-            .model-grid,
-            .method-steps {
+            .model-grid, .method-steps {
                 grid-template-columns: 1fr;
             }
-
             .data-grid {
                 grid-template-columns: 1fr;
             }
-
             .stats-inner {
                 grid-template-columns: repeat(2, 1fr);
             }
-
             .footer-inner {
                 flex-direction: column;
-            }
-
-            .footer-links {
-                gap: 2rem;
             }
         }
 
@@ -759,13 +600,13 @@
             nav .nav-links {
                 display: none;
                 position: absolute;
-                top: 72px;
+                top: 64px;
                 left: 0;
                 right: 0;
-                background: rgba(10, 22, 40, 0.98);
+                background: #0f172a;
                 flex-direction: column;
                 padding: 1rem;
-                border-bottom: 1px solid rgba(61, 212, 198, 0.15);
+                border-bottom: 1px solid rgba(255,255,255,0.08);
             }
 
             nav .nav-links.open {
@@ -776,17 +617,20 @@
                 display: block;
             }
 
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
             .hero-actions {
                 flex-direction: column;
             }
 
             .stats-inner {
                 grid-template-columns: 1fr 1fr;
-                gap: 1.5rem;
+                gap: 1rem;
             }
 
-            .gradio-container iframe,
-            .gradio-placeholder {
+            .gradio-container iframe {
                 height: 400px;
             }
         }
@@ -794,12 +638,12 @@
 </head>
 <body>
 
-    <!-- NAVIGATION -->
+    <!-- Navigation -->
     <nav>
         <div class="nav-inner">
             <a href="#home" class="logo">
-                <div class="logo-icon">💧</div>
-                GWL ML Forcast
+                <span class="logo-icon">💧</span>
+                GWL Predict  
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="active">Home</a></li>
@@ -817,13 +661,12 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- Hero section -->
     <section class="hero" id="home">
-        <div ></div>
         <div class="hero-content">
-            <div class="hero-badge"> Data Science Dissertation Project | The universty of Sheffield</div>
-            <h1>Forecasting UK <span class="gradient-text">Groundwater Levels</span> with Machine Learning</h1>
-            <p>Comparing statistical and deep learning ML models in predicting groundwater level in the UK</p>
+            <div class="hero-badge">Data Science Dissertation | University of Sheffield</div>
+            <h1>Forecasting UK <span class="highlight">Groundwater Levels</span> with Machine Learning</h1>
+            <p>Benchmarking statistical and deep learning models for predicting monthly groundwater levels in the UK using meteorological data.</p>
             <div class="hero-actions">
                 <a href="#dashboard" class="btn-primary">
                     <span>Interactive Dashboard</span>
@@ -836,16 +679,16 @@
         </div>
     </section>
 
-    <!-- STATS BAR -->
+    <!-- Stats -->
     <div class="stats-bar">
         <div class="stats-inner">
             <div class="stat-item">
-                <span class="stat-number">January 1944 - October 2015</span>
-                <span class="stat-label">Training Months</span>
+                <span class="stat-number">Jan 1944 – Oct 2015</span>
+                <span class="stat-label">Training Period</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number">November 2015 – October 2023</span>
-                <span class="stat-label">Testing Months</span>
+                <span class="stat-number">Nov 2015 – Oct 2023</span>
+                <span class="stat-label">Testing Period</span>
             </div>
             <div class="stat-item">
                 <span class="stat-number">5</span>
@@ -853,95 +696,95 @@
             </div>
             <div class="stat-item">
                 <span class="stat-number">3</span>
-                <span class="stat-label">Machine learning Models</span>
+                <span class="stat-label">ML Models</span>
             </div>
         </div>
     </div>
 
-    <!-- MODELS -->
+    <!-- Models -->
     <section class="section" id="models">
         <div class="section-inner">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <div class="section-label">Model Comparison</div>
                 <h2 class="section-title">Three Approaches to Prediction</h2>
-                <p class="section-desc">This research explores the effectiveness of various time-series modelling techniques: SARIMAX, LSTM, and TCN in forecasting Groundwater Levels of the United Kingdom. We analyse how each approach leverages historical hydro-meteorological data and identify which meteorological variables significantly enhance model performance. </p>
+                <p class="section-desc">This research benchmarks the persuasion of SARIMAX, LSTM, and TCN for forecasting UK groundwater levels using historical hydro-meteorological data, and examines which meteorological variables contribute most to model performance.</p>
             </div>
 
             <div class="model-grid">
                 <!-- SARIMAX -->
-                <div class="model-card fade-in">
+                <div class="model-card">
                     <div class="model-icon">S</div>
                     <h3>SARIMAX</h3>
                     <div class="model-type">Statistical Model</div>
-                    <p>Seasonal Autoregressive Integrated Moving Average with eXogenous variables.</p>
+                    <p>Seasonal Autoregressive Integrated Moving Average with eXogenous variables. Captures linear seasonal patterns and trends through its autoregressive structure.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE(M)</span>
+                            <span class="metric-label">RMSE (m)</span>
                             <span class="metric-value">5.154</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R² and NSE </span>
-                            <span class="metric-value">-0.3826</span>
+                            <span class="metric-label">R² / NSE</span>
+                            <span class="metric-value">-0.383</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE(M)</span>
-                            <span class="metric-value">4.1969</span>
+                            <span class="metric-label">MAE (m)</span>
+                            <span class="metric-value">4.197</span>
                         </div>
                         <div class="metric">
                             <span class="metric-label">MAPE %</span>
-                            <span class="metric-value">6.5844</span>
+                            <span class="metric-value">6.584</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- LSTM -->
-                <div class="model-card featured">
+                <div class="model-card">
                     <div class="model-icon">L</div>
                     <h3>LSTM</h3>
                     <div class="model-type">Deep Learning — Recurrent</div>
                     <p>Long Short-Term Memory network. Learns long-range temporal dependencies through gated memory cells, capturing non-linear relationships in the time series.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE(M)</span>
-                            <span class="metric-value">2.74</span>
+                            <span class="metric-label">RMSE (m)</span>
+                            <span class="metric-value">2.740</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R² and NSE</span>
-                            <span class="metric-value">0.61</span>
+                            <span class="metric-label">R² / NSE</span>
+                            <span class="metric-value">0.610</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE(M)</span>
-                            <span class="metric-value">2.19</span>
+                            <span class="metric-label">MAE (m)</span>
+                            <span class="metric-value">2.190</span>
                         </div>
                         <div class="metric">
-                          <span class="metric-label">MAPE %</span>
-                          <span class="metric-value">3.35</span>
+                            <span class="metric-label">MAPE %</span>
+                            <span class="metric-value">3.350</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- TCN -->
-                <div class="model-card fade-in">
+                <div class="model-card">
                     <div class="model-icon">T</div>
                     <h3>TCN</h3>
                     <div class="model-type">Deep Learning — Convolutional</div>
                     <p>Temporal Convolutional Network. Uses dilated causal convolutions to process sequences in parallel, offering efficient training with an expanding receptive field.</p>
                     <div class="model-metrics">
                         <div class="metric">
-                            <span class="metric-label">RMSE(M)</span>
-                            <span class="metric-value">2.9366</span>
+                            <span class="metric-label">RMSE (m)</span>
+                            <span class="metric-value">2.937</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">R² and NSE</span>
-                            <span class="metric-value">0.5511</span>
+                            <span class="metric-label">R² / NSE</span>
+                            <span class="metric-value">0.551</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-label">MAE(M)</span>
-                            <span class="metric-value">—2.3952</span>
+                            <span class="metric-label">MAE (m)</span>
+                            <span class="metric-value">2.395</span>
                         </div>
                         <div class="metric">
-                          <span class="metric-label">MAPE %</span>
-                          <span class="metric-value">3.5738</span>
+                            <span class="metric-label">MAPE %</span>
+                            <span class="metric-value">3.574</span>
                         </div>
                     </div>
                 </div>
@@ -949,39 +792,43 @@
         </div>
     </section>
 
-    <!-- DASHBOARD -->
+    <!-- Dashboard -->
     <section class="dashboard-section" id="dashboard">
         <div class="section-inner">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <div class="section-label">Interactive Tool</div>
-                <h2 class="section-title">Benchmarking  Dashboard</h2>
+                <h2 class="section-title">Benchmarking Dashboard</h2>
                 <p class="section-desc">Compare model predictions and explore historical trends.</p>
-				<p class="section-desc">This Dashboard is developed using Gradio and plotly and hosted in<a href="https://huggingface.co/spaces/kozy9/ML-GWL-Forecaster"> Hugging Face </a>a</p>
+				<p class="section-desc">This Dashboard is developed using Gradio and plotly and hosted in<a href= "https://huggingface.co/spaces/kozy9/ML-GWL-Forecaster"> Hugging Face</a></p>
             </div>
 
-            <div class="gradio-container fade-in">
+            <div class="gradio-container">
                 <div>
                     <script
-						type="module"
-						src="https://gradio.s3-us-west-2.amazonaws.com/6.13.0/gradio.js"
-					></script>
-
-<gradio-app src="https://kozy9-ml-gwl-forecaster.hf.space"></gradio-app>
+                        type="module"
+                        src="https://gradio.s3-us-west-2.amazonaws.com/6.13.0/gradio.js"
+                    ></script>
+                    <gradio-app src="https://kozy9-ml-gwl-forecaster.hf.space"></gradio-app>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DATA -->
+    <!-- Data -->
     <section class="section section-alt" id="data">
         <div class="section-inner">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <div class="section-label">Dataset</div>
                 <h2 class="section-title">About the Data</h2>
                 <p class="section-desc">A long-term UK observational record providing monthly groundwater measurements alongside meteorological variables.</p>
+				<p class="section-desc">The data is imported from</p>
+				<p>International Groundwater Resources Assessment Centre. (2025). The Global Groundwater Monitoring Network (GGMN). https://ggmn.un-igrac.org/ https://doi.org/10.58154/6Z0Y-DA34</p>
+				<p>Zippenfenig, P. (2023). Open-Meteo.com Weather API [Computer software]. Zenodo. https://doi.org/10.5281/ZENODO.7970649</p>
+
+
             </div>
 
-            <div class="data-grid fade-in">
+            <div class="data-grid">
                 <div class="data-card">
                     <h3>Dataset Overview</h3>
                     <ul class="data-list">
@@ -995,16 +842,15 @@
                         </li>
                         <li>
                             <span class="dl-label">Location</span>
-                            <span class="dl-value">UK </span>
+                            <span class="dl-value">UK</span>
                         </li>
                         <li>
                             <span class="dl-label">Target Variable</span>
                             <span class="dl-value">Water Level (m)</span>
                         </li>
                         <li>
-                            <span class="dl-label">Train / Validation /Test Split</span>
-                            <!-- UPDATE: Confirm your split ratio -->
-                            <span class="dl-value">80% / 10% / 20%</span>
+                            <span class="dl-label">Train / Test Split</span>
+                            <span class="dl-value">90% / 10%</span>
                         </li>
                     </ul>
                 </div>
@@ -1033,80 +879,78 @@
                 </div>
             </div>
 
-            <div class="limitations fade-in">
+            <div class="limitations">
                 <h4>Important Limitations</h4>
                 <ul>
-                    <li> The study uses data from a single region, limiting the generalizability of its results.</li>
-                    <li>Meteorological variables were aggregated without advanced lag engineering, possibly reducing their impact on SARIMAX model accuracy.</li>
-                    <li>The evaluation used a single temporal split. Using cross-validation in future research could improve reliability and generalisability.</li>
-                    <li>SARIMAX was evaluated using multi-step forecasting, generating all test predictions in a single step, which may affect error accumulation. LSTM and TCN models used single-step-ahead forecasting, receiving actual observed data at each step, potentially reducing compounding errors..</li>
+                    <li>The study uses data from a single country, limiting the generalisability of the results to other regions or aquifer types.</li>
+                    <li>Meteorological variables were aggregated at a monthly level without advanced lag engineering, which may reduce their predictive contribution, particularly for SARIMAX.</li>
+                    <li>The evaluation used a single temporal train/test split. Implementing cross-validation or rolling walk-forward evaluation in future work could improve the reliability of performance estimates.</li>
+                    <li>SARIMAX was evaluated using multi-step forecasting, generating all test predictions in a single pass, whereas LSTM and TCN used single-step-ahead forecasting with observed values at each step. This asymmetry should be considered when comparing results directly.</li>
                 </ul>
-               
-
             </div>
         </div>
     </section>
 
-    <!-- METHODOLOGY -->
+    <!-- Methodology -->
     <section class="section" id="methodology">
         <div class="section-inner">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <div class="section-label">How It Works</div>
                 <h2 class="section-title">Methodology Overview</h2>
-                <p class="section-desc">A structured approach to Preprocessing, Building, and Evaluating .</p>
+                <p class="section-desc">A structured approach to preprocessing, building, and evaluating the three forecasting models.</p>
             </div>
 
-            <div class="method-steps fade-in">
+            <div class="method-steps">
                 <div class="method-step">
                     <div class="step-num">01</div>
                     <h4>Data Preparation</h4>
-                    <p>Monthly observations were cleaned, aggregated, and normalised using MinMaxScaler. Separate scalers ensured no data leakage from test to training sets, and finally explored.</p>
+                    <p>Monthly observations were cleaned, explored, and normalised using MinMaxScaler. Separate scalers for features and target ensured no data leakage from the test set into training.</p>
                 </div>
                 <div class="method-step">
                     <div class="step-num">02</div>
                     <h4>Model Training</h4>
-                    <p>Each model was optimised using Bayesian hyperparameter search — Optuna for SARIMAX and Keras Tuner for LSTM and TCN — to find the best configuration systematically.</p>
+                    <p>Each model was optimised using Bayesian hyperparameter search — Optuna (TPE) for SARIMAX and Keras Tuner for LSTM and TCN — to systematically find the best configuration.</p>
                 </div>
                 <div class="method-step">
                     <div class="step-num">03</div>
                     <h4>Evaluation</h4>
-                    <p>Models were assessed on held-out test data using five standard metrics: RMSE, MAE, MAPE, R², and NSE. Naive baselines provided additional benchmarking context.</p>
+                    <p>Models were assessed on held-out test data using five metrics: RMSE, MAE, MAPE, R², and NSE.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- About -->
     <section class="section section-alt" id="about">
         <div class="section-inner">
-            <div class="section-header fade-in">
+            <div class="section-header">
                 <div class="section-label">About</div>
                 <h2 class="section-title">About This Project</h2>
-                <p class="section-desc"> A final year Data science project Benchmarking SARIMAX, LSTM, and TCN for groundwater prediction with metrological Data.</p>
+                <p class="section-desc">A final-year Data Science project benchmarking SARIMAX, LSTM, and TCN for groundwater prediction using meteorological data.</p>
             </div>
 
-            <div class="data-grid fade-in">
+            <div class="data-grid">
                 <div class="data-card">
                     <h3>Project Context</h3>
-                    <p>This project was completed as part of the IJC319 Responsible Data Science module at the University of Sheffield. It investigates whether deep learning models (LSTM, TCN) can outperform traditional statistical methods (SARIMAX) for predicting monthly groundwater levels in the UK with the use of meteorological data. </p>
-                    <p style="margin-top: 1rem;">The research is structured around three hypotheses addressing model performance and meteorological feature importance.</p>
+                    <p>This project was completed as part of the IJC319 Responsible Data Science module at the University of Sheffield. It investigates whether deep learning models (LSTM, TCN) can outperform a traditional statistical method (SARIMAX) for predicting monthly groundwater levels in the UK using meteorological data.</p>
+                    <p style="margin-top: 0.8rem;">The research is structured around three hypotheses addressing model performance comparisons and meteorological feature importance.</p>
                 </div>
 
                 <div class="data-card">
                     <h3>Digital Artefact</h3>
-                    <p>The trained models are hosted as reproducible notebooks on HuggingFace, and this dashboard provides an accessible interface for exploring the results.</p>
-                    <ul class="data-list" style="margin-top: 1rem;">
+                    <p>The trained models are hosted as reproducible notebooks on HuggingFace, and this dashboard serves as an accessible interface for exploring the benchmarking results.</p>
+                    <ul class="data-list" style="margin-top: 0.8rem;">
                         <li>
-                            <span class="dl-label">LSTM Huggingface Model</span>
-                            <a href="https://huggingface.co/kozy9/GWLSTM" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">kozy9/GWLSTM ↗</a>
+                            <span class="dl-label">LSTM Model</span>
+                            <a href="https://huggingface.co/kozy9/GWLSTM" target="_blank" class="dl-value" style="color: #0ea5e9; text-decoration: none;">kozy9/GWLSTM ↗</a>
                         </li>
                         <li>
-                            <span class="dl-label">TCN Huggingface Model</span>
-                            <a href="https://huggingface.co/kozy9/GWTCN" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">kozy9/GWTCN ↗</a>
+                            <span class="dl-label">TCN Model</span>
+                            <a href="https://huggingface.co/kozy9/GWTCN" target="_blank" class="dl-value" style="color: #0ea5e9; text-decoration: none;">kozy9/GWTCN ↗</a>
                         </li>
                         <li>
-                            <span class="dl-label">SARIMAX Huggingface Model</span>
-                            <a href="https://huggingface.co/kozy9/GWSarimax" target="_blank" class="dl-value" style="color: var(--teal); text-decoration: none;">kozy9/GWSarimax ↗</a>
+                            <span class="dl-label">SARIMAX Model</span>
+                            <a href="https://huggingface.co/kozy9/GWSarimax" target="_blank" class="dl-value" style="color: #0ea5e9; text-decoration: none;">kozy9/GWSarimax ↗</a>
                         </li>
                     </ul>
                 </div>
@@ -1114,12 +958,12 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <footer>
         <div class="footer-inner">
             <div class="footer-left">
-                <div class="footer-logo">GWL ML Forcasting </div>
-                <p>UK Groundwater Level ML benchmarking  Dashboard. Built as a digital artefact for module IJC319 dissertation , University of Sheffield.</p>
+                <div class="footer-logo">GWL Forecast</div>
+                <p>UK Groundwater Level ML Benchmarking Dashboard. Built as a digital artefact for module IJC319, University of Sheffield.</p>
             </div>
             <div class="footer-links">
                 <div class="footer-col">
@@ -1134,6 +978,9 @@
                     <a href="https://huggingface.co/kozy9/GWLSTM" target="_blank">LSTM on HuggingFace</a>
                     <a href="https://huggingface.co/kozy9/GWTCN" target="_blank">TCN on HuggingFace</a>
                     <a href="https://huggingface.co/kozy9/GWSarimax" target="_blank">SARIMAX on HuggingFace</a>
+					<a href="https://huggingface.co/kozy9/GWSarimax" target="_blank"> Dashboard HuggingFace Gradio and plotly</a>
+					<a herf = "https://huggingface.co/spaces/kozy9/ML-GWL-Forecaster"target="_blank"> Git hub repository of the codes to develope the models</a>
+					<a herf ="https://github.com/Zahrask2/ML-GWL-frocaster" target="_blank">Github repository used to develope the website</a>
                 </div>
             </div>
         </div>
@@ -1142,55 +989,41 @@
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script>
-        // Mobile nav toggle
+        // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
 
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', function() {
             navLinks.classList.toggle('open');
         });
 
-        // Close mobile nav on link click
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
                 navLinks.classList.remove('open');
             });
         });
 
-        // Active nav link on scroll
+        // Highlight current nav link on scroll
         const sections = document.querySelectorAll('section, .dashboard-section');
         const navItems = document.querySelectorAll('.nav-links a');
 
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', function() {
             let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (pageYOffset >= sectionTop) {
+            sections.forEach(function(section) {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) {
                     current = section.getAttribute('id');
                 }
             });
-
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.remove('active');
                 if (item.getAttribute('href') === '#' + current) {
                     item.classList.add('active');
                 }
             });
         });
-
-        // Scroll fade-in animation
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        fadeElements.forEach(el => observer.observe(el));
     </script>
 
 </body>
